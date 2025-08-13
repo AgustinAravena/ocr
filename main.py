@@ -19,11 +19,7 @@ async def ocr_from_base64(request: Request):
         # Decodifica la imagen Base64 a datos binarios
         image_data = base64.b64decode(image_base64)
         
-        # Abre la imagen con la biblioteca PIL
-        img = Image.open(io.BytesIO(image_data))
-        
-        # Realiza el OCR en la imagen
-        result = reader.readtext(img)
+          result = reader.readtext(image_data)
         
         # Extrae solo el texto del resultado del OCR y únelo en una sola cadena
         extracted_text = [text for (bbox, text, prob) in result]

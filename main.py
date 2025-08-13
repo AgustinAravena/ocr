@@ -2,7 +2,6 @@ import base64
 import io
 from fastapi import FastAPI, Request
 import easyocr
-from PIL import Image
 
 app = FastAPI()
 # Carga los idiomas que necesitas. 'es' para español, 'en' para inglés.
@@ -19,7 +18,8 @@ async def ocr_from_base64(request: Request):
         # Decodifica la imagen Base64 a datos binarios
         image_data = base64.b64decode(image_base64)
         
-          result = reader.readtext(image_data)
+        # Realiza el OCR en la imagen con los bytes directamente
+        result = reader.readtext(image_data)
         
         # Extrae solo el texto del resultado del OCR y únelo en una sola cadena
         extracted_text = [text for (bbox, text, prob) in result]
